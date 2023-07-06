@@ -49,5 +49,14 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
+    - uses: azure/k8s-set-context@v3
+      with:
+        method: kubeconfig
+        kubeconfig: ${{ secrets.KUBE_CONFIG }}
+
+    - name: Kubectl tool installer
+      uses: Azure/setup-kubectl@v3
+  
+
     - name: Deploy on K8's cluster
       run: kubectl apply -f ./manifest/deployment.yaml
