@@ -26,7 +26,7 @@ jobs:
 
     - name: Result Application Build Image Using docker
       run: |
-        docker build -t "${{ env.DOCKER_REPO }}":latest JavaApp/.
+        docker build -t "${{ env.DOCKER_REPO }}":latest web123/.
         docker tag "${{ env.DOCKER_REPO }}":latest "${{ env.DOCKER_REPO }}":${{ github.sha }}
         docker push  "${{ env.DOCKER_REPO }}":${{ github.sha }}
   

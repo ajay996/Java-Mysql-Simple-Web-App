@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: Java-WebApp
+  labels:
+    app: Java
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: Java
+  template:
+    metadata:
+      labels:
+        app: Java
+    spec:
+      containers:
+      - name: ajay996/web123
+        image: nginx:1.14.2
