@@ -30,9 +30,15 @@ jobs:
         docker tag "${{ env.DOCKER_REPO }}":latest "${{ env.DOCKER_REPO }}":${{ github.sha }}
         docker push  "${{ env.DOCKER_REPO }}":${{ github.sha }}
   
-    - name: Scan image with Trivy for Result Application
-      run:  |
-        trivy  --severity CRITICAL,HIGH,MEDIUM "${{ env.DOCKER_REPO }}":${{ github.sha }}
+    - name: Run Trivy vulnerability scanner
+      uses: aquasecurity/trivy-action@master
+      with:
+        image-ref: '"${{ env.DOCKER_REPO_R }}":${{ github.sha }}'
+        format: 'table'
+        exit-code: '1'
+        ignore-unfixed: true
+        vuln-type: 'os,library'
+        severity: 'CRITICAL,HIGH'
 
   Deploy:
     name: Deploy Pipeline
