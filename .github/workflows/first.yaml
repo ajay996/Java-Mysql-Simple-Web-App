@@ -1,0 +1,46 @@
+name: Build & Deploy Java web app 
+on:
+  workflow_dispatch:
+    branches:
+    - 'main'
+
+env:
+  DOCKER_REGISTRY: docker.io
+  DOCKER_REPO : ajay996/vote
+
+jobs:
+  CI-Pipeline:
+    name: Build CI Pipeline
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v2
+
+    - name: Login to Docker registry by docker
+      run: |
+        docker login  "${{ env.DOCKER_REGISTRY }}" -u "${{ secrets.DOCKERHUB_USERNAME }}" -p ${{ secrets.DOCKERHUB_PASSWORD }}
+
+    - name: Result Application Build Image Using docker
+      run: |
+        docker build -t "${{ env.DOCKER_REPO }}":latest JavaApp/.
+        docker tag "${{ env.DOCKER_REPO }}":latest "${{ env.DOCKER_REPO }}":${{ github.sha }}
+        docker push  "${{ env.DOCKER_REPO }}":${{ github.sha }}
+  
+    - name: Scan image with Trivy for Result Application
+      run:  |
+        trivy  --severity CRITICAL,HIGH,MEDIUM "${{ env.DOCKER_REPO }}":${{ github.sha }}
+
+  Deploy:
+    name: Deploy Pipeline
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Deploy on K8's cluster
+      run: kubectl deploy -f ./manifest/deployment.yaml
