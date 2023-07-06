@@ -6,7 +6,7 @@ on:
 
 env:
   DOCKER_REGISTRY: docker.io
-  DOCKER_REPO : ajay996/web123
+  DOCKER_REPO : ajay996/web
 
 jobs:
   CI-Pipeline:

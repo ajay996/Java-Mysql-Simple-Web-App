@@ -15,5 +15,5 @@ spec:
         app: Java
     spec:
       containers:
-      - name: ajay996/web123
+      - name: ajay996/web
         image: nginx:1.14.2
