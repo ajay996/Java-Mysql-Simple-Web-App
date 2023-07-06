@@ -24,7 +24,7 @@ jobs:
       run: |
         docker login  "${{ env.DOCKER_REGISTRY }}" -u "${{ secrets.DOCKERHUB_USERNAME }}" -p ${{ secrets.DOCKERHUB_PASSWORD }}
 
-    - name: Result Application Build Image Using docker
+    - name: Java Web App build using docker
       run: |
         docker build -t "${{ env.DOCKER_REPO }}":latest .
         docker tag "${{ env.DOCKER_REPO }}":latest "${{ env.DOCKER_REPO }}":${{ github.sha }}
