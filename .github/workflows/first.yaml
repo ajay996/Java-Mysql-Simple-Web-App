@@ -6,7 +6,7 @@ on:
 
 env:
   DOCKER_REGISTRY: docker.io
-  DOCKER_REPO : ajay996/vote
+  DOCKER_REPO : ajay996/web123
 
 jobs:
   CI-Pipeline:
@@ -26,7 +26,7 @@ jobs:
 
     - name: Result Application Build Image Using docker
       run: |
-        docker build -t "${{ env.DOCKER_REPO }}":latest web123/.
+        docker build -t "${{ env.DOCKER_REPO }}":latest .
         docker tag "${{ env.DOCKER_REPO }}":latest "${{ env.DOCKER_REPO }}":${{ github.sha }}
         docker push  "${{ env.DOCKER_REPO }}":${{ github.sha }}
   
