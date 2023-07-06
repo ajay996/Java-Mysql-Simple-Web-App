@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: appjava
+  name: java-web-app
   labels:
-    app: Java
+    app: java-web-app
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: Java
+      app: java-web-app
   template:
     metadata:
       labels:
-        app: Java
+        app: java-web-app
     spec:
       containers:
-      - name: ajay996/web
-        image: nginx:1.14.2
+      - name: java-web-app
+        image: ajay996/web
