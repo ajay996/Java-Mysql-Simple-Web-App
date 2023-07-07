@@ -1,6 +1,6 @@
 name: Build & Deploy Java web app 
 on:
-  push:
+  workflow_dispatch:
     branches:
     - 'main'
 
