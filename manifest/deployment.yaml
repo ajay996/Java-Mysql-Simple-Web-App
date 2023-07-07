@@ -16,4 +16,4 @@ spec:
     spec:
       containers:
       - name: java-web-app
-        image: ajay996/web:487f3adba498796f478bc699e303233314f1cc39
+        image: ajay996/web:c6fbc4593ce98e70e0214fecb79eab707a57614c
